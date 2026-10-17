@@ -4,7 +4,7 @@
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
 version: "3.44.1"
-updated: "2026-10-06"
+updated: "2026-10-17"
 
 # ════════════════════════════════════════════════════════════════
 # DEEP DIVE - Line numbers in guide/ultimate-guide.md
@@ -28,12 +28,12 @@ deep_dive:
   distribution_channels_registry: "machine-readable/distribution-channels.yaml"
   learning_path_slides: "docs/distribution/claude-code-learning-path-slides.pptx"
   quick_win_video_briefs: "docs/distribution/quick-win-video-series.md"
-  # Visual Diagrams Series (49 Mermaid diagrams)
+  # Visual Diagrams Series (50 Mermaid diagrams)
   mermaid_diagrams:
     path: "guide/diagrams/"
-    description: "49 Mermaid diagrams: model selection, agent lifecycle, memory hierarchy, security threats, multi-agent patterns, observed AI fluency behaviors, context engineering, enterprise governance"
+    description: "50 Mermaid diagrams: model selection, agent lifecycle, memory hierarchy, security threats, multi-agent patterns, observed AI fluency behaviors, context engineering, enterprise governance, dense, MoE and vision-language model pipelines"
     files: 12
-    total_diagrams: 49
+    total_diagrams: 50
   # Individual diagram files (all 12; see guide/diagrams/README.md for the full navigation table)
   diagram_foundations: "guide/diagrams/01-foundations.md"
   diagram_context_and_sessions: "guide/diagrams/02-context-and-sessions.md#context-management-zones"
@@ -112,6 +112,17 @@ deep_dive:
   # Glossary (alphabetical term reference)
   glossary: "guide/core/glossary.md"
   glossary_description: "120+ terms: Claude Code-specific, community-coined patterns, AI engineering concepts. Alphabetical table with Category + Subcategory. Excludes standard CS/DevOps terms."
+  ai_concept_boundaries: "guide/core/ai-concept-boundaries.md"
+  ai_concept_context_memory: "guide/core/ai-concept-boundaries.md#context-context-window-and-memory"
+  ai_concept_model_harness: "guide/core/ai-concept-boundaries.md#model-product-and-harness"
+  ai_concept_workflow_agent: "guide/core/ai-concept-boundaries.md#assistant-workflow-and-agent"
+  ai_concept_tool_mcp: "guide/core/ai-concept-boundaries.md#tool-and-mcp"
+  ai_concept_execution_controls: "guide/core/ai-concept-boundaries.md#instructions-permissions-and-sandbox"
+  ai_concept_evaluation_evidence: "guide/core/ai-concept-boundaries.md#evaluation-and-production-evidence"
+  ai_concept_model_axes: "guide/core/ai-concept-boundaries.md#architecture-size-class-modality-and-task"
+  diagram_model_pipelines: "guide/diagrams/04-architecture-internals.md#three-model-pipelines-dense-moe-and-vlm"
+  ai_concept_scenario_checks: "guide/core/ai-concept-boundaries.md#check-your-understanding"
+  lexigraph_evaluation: "docs/resource-evaluations/lexigraph-ai-lexicon.md"
   translation_status_guide: "guide/core/translations.md"
   translation_registry: "machine-readable/translations.json"
   # Context Engineering (consolidated reference)
@@ -129,7 +140,7 @@ deep_dive:
   context_signal_taxonomy: "guide/core/context-engineering.md#10-signal-taxonomy-and-causal-attribution"
   context_signal_taxonomy_description: "Five-category friction signal taxonomy (syntactic/semantic/procedural/alignment/performance) + YAML event schema + per-pattern tracking dict. Replaces flat friction_score."
   context_loop_closure: "guide/core/context-engineering.md#11-loop-closure-pr-based-curation"
-  context_loop_closure_description: "PR-based Curator mechanism: diff + canary A/B results + friction evidence + suggestion escalation. Multi-timescale (real-time/weekly/quarterly). Signal locality options (local cron / pushed store / hosted env)."
+  context_loop_closure_description: "PR-based Curator: diff, friction evidence, task-representative probes and review; isolate candidates, verify persistence rights and audience, publish identified revisions, separate self-feedback from approval, define expiry."
   context_ejection: "guide/core/context-engineering.md#12-ejection-disciplined-de-engineering"
   context_ejection_description: "Automated detection of dormant rules and negative-ROI skills for archival. Three heuristics: activation threshold, ROI tracking, profile overlap >80%."
   context_self_audit: "guide/core/context-engineering.md#13-constitutional-and-self-consistency-audits"
@@ -192,6 +203,9 @@ deep_dive:
   agent_harness_digital_twin: "guide/core/agent-harness.md#5-digital-twin-testing"
   agent_harness_model_harness_pair: "guide/core/agent-harness.md#the-core-claim"
   agent_harness_optimizer: "guide/core/agent-harness.md#11-harness-optimizers-and-meta-harnesses"
+  wikiskill_evaluation: "docs/resource-evaluations/wikiskill-persistent-skill-evolution.md"
+  wikiskill_persistent_proposal_history: "guide/core/memory-systems.md#68-compile-experience-into-skills-wikiskill"
+  wikiskill_executor_transfer: "guide/core/agent-harness.md#11-harness-optimizers-and-meta-harnesses"
   agent_harness_meta_harness_overload: "guide/core/agent-harness.md#0-four-layers-four-responsibilities"  # research optimizer versus product dispatcher or orchestrator usage
   agent_harness_optimizer_landscape: "guide/ecosystem/agent-harness-landscape.md#harness-optimizers-and-meta-harnesses"
   agent_harness_evaluation_protocol: "guide/core/agent-harness.md#11-harness-optimizers-and-meta-harnesses"
@@ -519,6 +533,7 @@ deep_dive:
   harness_autoharness_evaluation: "docs/resource-evaluations/autoharness-2026.md"
   harness_human_oversight_evaluation: "docs/resource-evaluations/human-oversight-agents-2608-23642.md"
   harness_review_infographics: "guide/images/harness-review/README.md"
+  model_axes_infographics: "guide/images/model-axes/README.md"
   review_admission_worksheet: "examples/workflows/review-admission.md"
   review_queue_measurements: "guide/ops/team-metrics.md#measure-the-shared-verification-queue"
   review_comprehension_exercise: "examples/learning-project/review-comprehension-exercise.md"
@@ -687,7 +702,7 @@ deep_dive:
   # Native Claude Code Sandbox (Official docs, v2.1.0+) - Added 2026-02-02
   sandbox_native_guide: "guide/security/sandbox-native.md"
   sandbox_native_why: "guide/security/sandbox-native.md#1-why-native-sandboxing"  # Why Native Sandboxing
-  sandbox_native_os_primitives: "guide/security/sandbox-native.md:68"  # Seatbelt vs bubblewrap
+  sandbox_native_os_primitives: "guide/security/sandbox-native.md#2-os-primitives"  # Seatbelt vs bubblewrap
   sandbox_native_filesystem: "guide/security/sandbox-native.md#3-filesystem-isolation"  # Filesystem isolation
   sandbox_native_network: "guide/security/sandbox-native.md#4-network-isolation"  # Network proxy architecture
   sandbox_native_modes: "guide/security/sandbox-native.md:7"  # Auto-allow vs Regular
@@ -711,35 +726,41 @@ deep_dive:
   sandbox_allow_apple_events: "guide/core/settings-reference.md#sandboxallowappleevents"  # removes code-execution isolation; prefer excludedCommands
   sandbox_auto_allow_exceptions: "guide/security/sandbox-native.md#what-still-applies-in-auto-allow-mode"  # deny rules, rm on / or ~, content-scoped ask; bare Bash ask skipped when sandboxed
   sandbox_subagents_inherit: "guide/security/sandbox-native.md#subagents"  # same process, same config, cannot widen
-  sandbox_excluded_commands_traps: "guide/security/sandbox-native.md#three-traps-all-verified-on-21220"
+  sandbox_excluded_commands_traps: "guide/security/sandbox-native.md#traps-that-still-apply"
+  sandbox_excluded_matching: "guide/security/sandbox-native.md#how-an-entry-matches-v21277"  # v2.1.277+: every command in a call must match; cd, redirect, pipe, loop, $(...) keep the whole call sandboxed
   sandbox_excluded_bare_name_noop: "a bare entry matches only the zero-argument string and never fires; use the glob form (github.com/anthropics/claude-code/issues/10524)"
-  sandbox_excluded_whole_invocation: "a matching glob unsandboxes the ENTIRE Bash invocation including earlier commands; git status && cat ~/.ssh/id_ed25519 reads the key with 'git *' present (issues/81157, open 2026-07-25)"
+  sandbox_excluded_whole_invocation: "fixed in v2.1.277: every command in a call must match an entry, so a chained call stays sandboxed; before v2.1.277 one match unsandboxed the whole call (issues/81157). Verified on v2.1.302: gh --version; echo $TMPDIR stayed sandboxed with 'gh *' excluded"
   sandbox_excluded_prefix_breaks_match: "a wrapper, prefix or loop moves the command inside the string and the entry stops matching: 'gh api' works, 'rtk gh api' is sandboxed and fails, 'for d in ..; do git push; done' is sandboxed because the string starts with for. A PreToolUse hook that rewrites commands disables every exclusion naming a wrapped binary, silently"
-  sandbox_excluded_three_traps: "guide/security/sandbox-native.md#three-traps-all-verified-on-21220"  # bare name never matches, glob unsandboxes the whole invocation, prefix breaks the match
+  sandbox_excluded_three_traps: "guide/security/sandbox-native.md#traps-that-still-apply"  # bare name never matches, a broad entry hands over full access (postinstall scripts for npm/pnpm), prefix breaks the match; a wrapped form like rtk git * covers every subcommand
   sandbox_go_cli_tls_symptom: "x509: OSStatus -26276 from gh/glab/gcloud/terraform means the CLI ran INSIDE the sandbox and could not reach the macOS keychain; it is an exclusion that did not match, not an auth or certificate problem"
   sandbox_config_example: "examples/config/sandbox-native.json"  # rewritten 2026-07-29, the previous version used six keys that do not exist
   sandbox_break_in_week: "guide/security/sandbox-native.md#plan-for-a-break-in-week"  # ~1 week before the config stabilizes; widen on evidence, never on anticipation
-  sandbox_allow_local_binding: "guide/security/sandbox-native.md#local-servers-and-proxies-fail-to-bind"  # defaults to false, breaks every dev server and any tool proxying its own traffic; macOS only
+  sandbox_allow_local_binding: "guide/security/sandbox-native.md#local-servers-and-proxies-fail-to-bind"  # defaults to false, breaks every dev server and any tool proxying its own traffic; macOS only; true also exposes every localhost service to sandboxed commands
   sandbox_global_npm_tooling: "guide/security/sandbox-native.md#global-npm-tooling-fails-with-eperm"  # globally installed CLIs cache inside their own install dir under ~/.nvm; allowing it grants write to a $PATH directory
   sandbox_read_the_last_error: "guide/security/sandbox-native.md#read-the-last-error-not-the-first"  # a denied credential read warns on every later command and survives the fix, collecting blame; denied write or bind is the fatal one
   sandbox_13_write_paths_real_config: "a config hardened over a week on a 200-repo setup ended at 13 write paths, each added from a specific failure: ~/.cargo ~/.rustup (crate fetch), ~/.claude (versioned dotfiles .git/index.lock), ~/.nvm (supply-chain firewall cache), allowLocalBinding (dev servers), ~/Library/Caches (Quarto/Typst/Playwright)"
-  sandbox_ssh_needs_exception: "the proxy handles HTTP/HTTPS but not port 22 and blocks the ssh-agent socket, so git over SSH fails at DNS resolution; scope to git push */git fetch */git pull */ssh * rather than the whole binary"
-  sandbox_no_curl_blocklist: "there is no built-in curl/wget blocklist; a missing domain hangs to timeout (HTTP 000, curl exit 28) rather than erroring cleanly"
+  sandbox_ssh_needs_exception: "macOS only: git's SSH tunnel through the sandbox proxy cannot authenticate, so fetch/pull/push to an SSH remote fail even with the host allowed; on Linux/WSL2 they work once the host is allowed on port 22. Prefer an HTTPS remote; otherwise scope to git push */git fetch */git pull * rather than the whole binary"
+  sandbox_no_curl_blocklist: "there is no built-in curl/wget blocklist; what happens to a missing domain depends on the permission mode (prompt in manual mode, refusal naming the host in auto mode); a hang to timeout (HTTP 000, curl exit 28) was measured on 2.1.220"
+  sandbox_per_command_allowed_domains: "guide/security/sandbox-native.md#per-command-allowed-domains-in-auto-mode"  # v2.1.271+: auto mode declares hosts per command for the classifier; nothing persists; refused under strictAllowlist/allowManagedDomainsOnly; deniedDomains still wins
+  sandbox_local_address_check: "guide/security/sandbox-native.md#domain-filtering"  # v2.1.284+: allowed hostnames resolving to loopback, link-local (169.254.169.254) or own-machine addresses are refused; private ranges like 10.0.0.0/8 connect
+  sandbox_admin_required: "guide/security/sandbox-native.md#admin-required-sandbox"  # managed or --settings allowUnsandboxedCommands:false, or managed allowManagedDomainsOnly: repository excludedCommands, allowedDomains, allowWrite, proxy ports ignored (v2.1.282+, full list v2.1.285+)
+  sandbox_fail_if_unavailable: "guide/core/settings-reference.md#sandboxfailifunavailable"  # without it a sandbox that cannot start runs commands unsandboxed; native Windows has no sandbox
+  sandbox_envvars_profile_reexport: "guide/security/sandbox-native.md#default-behavior"  # measured v2.1.302: denied env vars exported from ~/.zshrc stayed set inside sandboxed commands, a var only in the launch env was removed; mechanism inferred, not verified
   sandbox_settings_files_protected: "guide/security/sandbox-native.md#default-behavior"  # writes to settings.json denied at every scope, symlinks resolved since v2.1.210; use the Edit tool, which is not sandboxed
-  sandbox_deny_read_misses_bash: "guide/security/sandbox-native.md#default-behavior"  # permissions.deny Read(...) governs the Read tool only; double dissociation on 2.1.220, ~/.npmrc (credentials.files, no deny rule) blocked 5/5 while .env (deny rule, no credentials entry) read exit 0 5/5
-  sandbox_credentials_needs_absolute_paths: "guide/security/sandbox-native.md#default-behavior"  # sandbox.credentials.files resolves absolute paths, not **/ patterns, so .env files scattered across projects cannot be covered; a PreToolUse Bash hook is the only close
+  sandbox_deny_read_misses_bash: "guide/security/sandbox-native.md#default-behavior"  # contested: official doc says Read deny rules merge into the sandbox (wildcard precedence v2.1.236); 2.1.220 and a v2.1.302 probe outside the project read the file, a September build refused a project .env; test locally
+  sandbox_credentials_needs_absolute_paths: "guide/security/sandbox-native.md#default-behavior"  # credentials.files names explicit paths; for .env files scattered across projects use a filesystem.denyRead wildcard such as ~/**/.env, verified with a sandboxed cat, and keep a PreToolUse Bash hook as a second layer
   sandbox_env_hook_scope: "guide/security/sandbox-native.md#default-behavior"  # scope the .env hook to printing/copying readers (cat head grep base64 cp) and let `source .env` through, otherwise you break how developers load their own variables
   sandbox_idea_vscode_write_denied: "guide/security/sandbox-native.md#default-behavior"  # .idea/ and .vscode/ deny writes inside allowWrite; .serena .cursor .zed .fleet .settings all accept them, so it is name-specific, and a package shipping .idea in its tarball kills pnpm install
   sandbox_tmpdir_witness: "guide/security/sandbox-native.md#check-whether-the-command-actually-ran-sandboxed"  # echo $TMPDIR tells sandboxed (/tmp/claude-NNN) from escaped (/var/folders/.../T/); the cheapest way to stop cross-session contradictions
-  sandbox_excluded_flag_flips_whole_line: "guide/security/sandbox-native.md#check-whether-the-command-actually-ran-sandboxed"  # A/B verified: `git fetch origin` unsandboxes the entire invocation, `git -C <path> fetch origin` does not match and stays sandboxed; one flag decides
-  sandbox_setuid_exec_denied: "guide/security/sandbox-native.md#commands-that-cannot-work-sandboxed-at-all"  # ps top su login carry mode 04000 and cannot exec; lsof and whoami do not and run fine; use lsof -nP -iTCP -sTCP:LISTEN instead of ps aux | grep
-  sandbox_unix_socket_bind_denied: "guide/security/sandbox-native.md#commands-that-cannot-work-sandboxed-at-all"  # AF_UNIX bind+listen denied in every writable dir including $TMPDIR; allowLocalBinding covers TCP only, so tsx will not start; bundle with esbuild then run node
+  sandbox_excluded_flag_flips_whole_line: "guide/security/sandbox-native.md#check-whether-the-command-actually-ran-sandboxed"  # v2.1.277+: a probe chained to the command under test changes the answer; run the command alone, read $TMPDIR in a separate call. git -C <path> fetch does not match git fetch *
+  sandbox_setuid_exec_denied: "guide/security/sandbox-native.md#commands-that-cannot-work-sandboxed-at-all"  # ps top su login carry mode 04000 and cannot exec sandboxed; a bare call under an excludedCommands entry (ps *) works; lsof -nP -iTCP -sTCP:LISTEN needs no config
+  sandbox_unix_socket_bind_denied: "guide/security/sandbox-native.md#commands-that-cannot-work-sandboxed-at-all"  # AF_UNIX bind+listen denied while sandboxed, including $TMPDIR; allowLocalBinding covers TCP only; a bare excluded command binds fine, a cd-prefixed line stays sandboxed; or bundle with esbuild then run node
   sandbox_allowlist_filters_without_strict: "guide/security/sandbox-native.md#domain-filtering"  # allowedDomains filters even in permissive mode; adding a wildcard flipped cursor.com and www.jetbrains.com from unreachable to 200, hot, no restart
   sandbox_blocked_host_vs_missing_host: "guide/security/sandbox-native.md#domain-filtering"  # allowlist refusal hangs 5-7s; a nonexistent hostname fails in under 30ms even when a wildcard covers it
   sandbox_codeload_not_covered: "guide/security/sandbox-native.md#domain-filtering"  # github.com does not cover codeload.github.com, where npm and pnpm fetch git dependencies and tarballs
   sandbox_session_tmpdir: "guide/security/sandbox-native.md#default-behavior"  # $TMPDIR points at a per-session dir for sandboxed commands, /tmp itself is not writable
   sandbox_ubuntu_apparmor: "guide/security/sandbox-native.md#linuxwsl2-bubblewrap"  # Ubuntu 24.04+ blocks bubblewrap user namespaces; check sysctl kernel.apparmor_restrict_unprivileged_userns
-  sandbox_runtime_oss: "https://github.com/anthropic-experimental/sandbox-runtime"
+  sandbox_runtime_oss: "https://github.com/anthropics/sandbox-runtime"
   sandbox_runtime_npm: "https://www.npmjs.com/package/@anthropic-ai/sandbox-runtime"
   sandbox_official_docs: "https://code.claude.com/docs/en/sandboxing"
   sandbox_comparison_native_docker: "guide/security/sandbox-isolation.md#4-native-claude-code-sandbox"  # Section 4 Native CC
@@ -1290,7 +1311,7 @@ deep_dive:
   liza_framework_governance: "Go supervisors enforce state/merge/TDD gates + adversarial doer/reviewer pairs + YAML blackboard audit trail + circuit breaker (explicit stop-the-line) + 55+ failure-mode behavioral contract"
   liza_framework_evaluation: "docs/resource-evaluations/liza-mas-framework.md"
   multica_evaluation: "docs/resource-evaluations/2026-09-05-multica.md"
-  liza_satellite_tools_rejected: "docs/resource-evaluations/liza-mas-token-saving-cli-tools.md (scip-search/mdtoc/functional-clusters/stacklit-cli rejected 2026-06-10; framework itself is a separate, higher-scored object)"
+  liza_satellite_tools_evaluation: "docs/resource-evaluations/liza-mas-token-saving-cli-tools.md (reassessed 2026-10-13: mdtoc/stacklit-cli 3/5, scip-search/functional-clusters 2/5; worktree artifacts and CLI fork corrected; runtime and savings unverified; framework evaluated separately)"
   # Anthropic AI-native SDLC playbook: intent.md upstream document + closed Maintain-to-Plan loop (added 2026-08-26)
   ai_native_sdlc_playbook_source: "https://claude.com/blog/the-ai-native-sdlc-playbook"
   ai_native_sdlc_playbook_evaluation: "docs/resource-evaluations/2026-08-26-anthropic-ai-native-sdlc-playbook.md"
@@ -1399,7 +1420,7 @@ deep_dive:
   git_best_practices: 16764
   cost_optimization: 2141  # anchor: cost-awareness--optimization
   session_teleportation: "guide/ultimate-guide.md#916-session-teleportation" # was line 19161
-  remote_control: 22650  # anchor: 922-remote-control-mobile-access
+  remote_control: 22377  # anchor: 922-remote-control-mobile-access
   multi_instance_workflows: "guide/ultimate-guide.md#917-scaling-patterns-multi-instance-workflows" # was line 19268
   boris_cherny_case_study: "guide/ultimate-guide.md#real-world-case-boris-cherny-interval" # was line 19421
   boris_cherny_team_patterns: "guide/ultimate-guide.md#boris-chernys-3-principles-for-ai-teams" # was line 6779
@@ -1407,17 +1428,17 @@ deep_dive:
   dual_instance_planning: "guide/ultimate-guide.md#alternative-pattern-dual-instance-planning-vertical-separation" # was line 19474
   dual_instance_workflow: "guide/workflows/dual-instance-planning.md"
   dual_instance_overview: 18935  # anchor: alternative-pattern-dual-instance-planning-vertical-separation
-  dual_instance_setup: "guide/workflows/dual-instance-planning.md#dual-instance-planning-workflow"
-  dual_instance_complete_workflow: "guide/workflows/dual-instance-planning.md#dual-instance-planning-workflow"
-  dual_instance_plan_template: "guide/workflows/dual-instance-planning.md#dual-instance-planning-workflow"
-  dual_instance_cost_analysis: "guide/workflows/dual-instance-planning.md:614"
+  dual_instance_setup: "guide/workflows/dual-instance-planning.md#setup"
+  dual_instance_complete_workflow: "guide/workflows/dual-instance-planning.md#complete-workflow"
+  dual_instance_plan_template: "guide/workflows/dual-instance-planning.md#plan-template"
+  dual_instance_cost_analysis: "guide/workflows/dual-instance-planning.md#cost-analysis"
   dual_instance_comparison: "guide/ultimate-guide.md#comparison-boris-horizontal-vs-jon-vertical"  # was 19474, drifted
   dual_instance_source: "https://www.linkedin.com/posts/thatjonwilliams_ive-been-using-cursor-for-six-months-now-activity-7424481861802033153-k8bu"
   dual_instance_author: "Jon Williams (Product Designer, UK)"
   dual_instance_date: "2026-02-03"
   dual_instance_pattern: "Vertical separation (planner vs implementer) - orthogonal to Boris horizontal scaling"
-  dual_instance_cost: "$100-200/month (vs $500-1K Boris pattern)"
-  dual_instance_audience: "Solo devs, spec-heavy work, quality > speed"
+  dual_instance_cost: "No universal budget or correction-loop break-even; compare full cost per accepted task including planning, review, coordination and rework"
+  dual_instance_audience: "Tasks needing explicit design decisions or a handoff across sessions; measure coordination overhead"
   # Plan-Validate-Execute Pipeline (Mar 2026)
   plan_pipeline_workflow: "guide/workflows/plan-pipeline.md"
   plan_pipeline_philosophy: "non-prescriptive AI-first + No Bandaids first principles + ADR learning loop"
@@ -1450,7 +1471,7 @@ deep_dive:
   team_tips_paddo_source: "Boris Cherny thread (x.com/bcherny/status/2017742741636321619)"
   team_tips_paddo_evaluation: "docs/resource-evaluations/paddo-team-tips-eval.md"
   team_tips_paddo_score: "4/5"
-  anthropic_study_metrics: 19472  # anchor: anthropic-internal-study-august-2025
+  anthropic_study_metrics: 19199  # anchor: anthropic-internal-study-august-2025
   # Contribution Metrics (Jan 2026 - platform feature, not CLI release)
   contribution_metrics: "guide/ultimate-guide.md#contribution-metrics-january-2026" # was line 20045
   contribution_metrics_source: "https://claude.com/blog/contribution-metrics"
@@ -1464,14 +1485,14 @@ deep_dive:
   git_worktree_clean_command: "examples/skills/git-worktree-clean/SKILL.md"
   git_worktrees_multi_instance: 16948  # anchor: git-worktrees-for-parallel-development
   advanced_worktree_tooling: "guide/ultimate-guide.md#advanced-tooling-for-worktree-management-optional" # was line 19838
-  worktree_tooling_self_assessment: 19313  # anchor: do-i-need-worktrunk-self-assessment
-  anthropic_internal_study: 19472  # anchor: anthropic-internal-study-august-2025
+  worktree_tooling_self_assessment: 19040  # anchor: do-i-need-worktrunk-self-assessment
+  anthropic_internal_study: 19199  # anchor: anthropic-internal-study-august-2025
   multi_instance_costs: "guide/ultimate-guide.md#cost-benefit-analysis"  # was 19268, drifted
   orchestration_frameworks: "guide/ultimate-guide.md#orchestration-frameworks" # was line 20104
-  headless_pm_framework: 19569  # anchor: headless-pm-open-source
+  headless_pm_framework: 19296  # anchor: headless-pm-open-source
   multi_instance_implementation: "guide/ultimate-guide.md#implementation-guide-progressive-scaling"  # was 19268, drifted
   multi_instance_monitoring: "guide/ultimate-guide.md#monitoring--observability"  # was 19268, drifted
-  multi_instance_decision_matrix: 19798  # anchor: decision-matrix | Multi-instance selection matrix
+  multi_instance_decision_matrix: 19525  # anchor: decision-matrix | Multi-instance selection matrix
   # External orchestration systems
   external_orchestrators:
     gas_town:
@@ -1518,7 +1539,7 @@ deep_dive:
       published: "2026-01-21"
       guide_section: "README.md:338"
   # Section 9.18 - Codebase Design for Agent Productivity
-  codebase_design_agents: 19903
+  codebase_design_agents: 19630
   codebase_design_source: "https://marmelab.com/blog/2026/01/21/agent-experience.html"
   codebase_design_author: "François Zaninotto (Marmelab)"
   codebase_design_llms_txt: "guide/ultimate-guide.md#9184-machine-readable-documentation-architecture"
@@ -1540,7 +1561,7 @@ deep_dive:
   # Section 9.20 - Agent Teams (v2.1.32+ experimental)
   agent_teams: "guide/workflows/agent-teams.md"
   agent_teams_quick_start: "guide/workflows/agent-teams-quick-start.md"  # Practical 8-10 min guide with copy-paste patterns
-  agent_teams_overview: 22155  # anchor: 920-agent-teams-multi-agent-coordination
+  agent_teams_overview: 21882  # anchor: 920-agent-teams-multi-agent-coordination
   agent_teams_architecture: "guide/workflows/agent-teams.md#2-architecture-deep-dive"
   agent_teams_setup: "guide/workflows/agent-teams.md#3-setup--configuration"
   agent_teams_use_cases: "guide/workflows/agent-teams.md#4-production-use-cases"
@@ -1659,7 +1680,7 @@ deep_dive:
   session_lifecycle_verification_hook: "examples/hooks/bash/verification-gate.sh"  # PostToolUse independent evaluator hook
   atdd_with_agents: "guide/core/methodologies.md#tier-3-behavior--acceptance"  # ATDD + Gherkin for agentic workflows
   harness_agents_md_as_toc: "guide/ultimate-guide.md#9251-agentsmd-as-toc-not-encyclopedia"  # AGENTS.md as ~100-line TOC pointing to docs/ hierarchy, not encyclopedia
-  harness_knowledge_boundary: "guide/ultimate-guide.md#9252-what-the-agent-cant-see-doesnt-exist"  # "What agent can't see doesn't exist": encode Slack/docs as repo markdown
+  harness_knowledge_boundary: "guide/ultimate-guide.md#9252-what-the-agent-cant-see-doesnt-exist"  # Authorized discoverable sources; stable contracts, organizational context and live state retain their owners
   harness_knowledge_base: "guide/ultimate-guide.md#9253-the-knowledge-base-structure"  # Structured docs/ with design-docs/, exec-plans/, product-specs/, references/
   harness_observability_stack: "guide/ultimate-guide.md#9254-agent-readable-observability"  # Ephemeral per-worktree observability: Vector + VictoriaLogs/Metrics/Traces + LogQL/PromQL/TraceQL
   harness_taste_invariants: "guide/ultimate-guide.md#9255-enforcing-architecture-and-taste"  # Taste invariants + custom linters with agent-readable error messages
@@ -1669,15 +1690,15 @@ deep_dive:
   openai_harness_engineering: "docs/resource-evaluations/2026-02-11-openai-harness-engineering.md"  # Score 5/5: OpenAI Codex team, 1M lines, 5 months, 3 engineers, no manual code
   commands_table: "guide/ultimate-guide.md#101-commands-table" # was line 47
   shortcuts_table: 446  # anchor: quick-actions--shortcuts
-  troubleshooting: 24283  # anchor: 104-troubleshooting
+  troubleshooting: 24026  # anchor: 104-troubleshooting
   cheatsheet: "guide/ultimate-guide.md#105-cheatsheet" # was line 25158
-  daily_workflow: 24743  # anchor: 106-daily-workflow--checklists
+  daily_workflow: 24486  # anchor: 106-daily-workflow--checklists
   # AI Ecosystem (Section 11, ~line 10525)
-  ai_ecosystem: 25009  # anchor: 11-ai-ecosystem-complementary-tools
-  ai_ecosystem_complementarity: 25009
-  ai_ecosystem_tool_matrix: 25050  # anchor: 112-tool-matrix
-  ai_ecosystem_workflows: 25185  # anchor: 113-practical-workflows
-  ai_ecosystem_integration: 25313  # anchor: 114-integration-patterns
+  ai_ecosystem: 24752  # anchor: 11-ai-ecosystem-complementary-tools
+  ai_ecosystem_complementarity: 24752
+  ai_ecosystem_tool_matrix: 24793  # anchor: 112-tool-matrix
+  ai_ecosystem_workflows: 24928  # anchor: 113-practical-workflows
+  ai_ecosystem_integration: 25056  # anchor: 114-integration-patterns
   ai_ecosystem_detailed: "guide/ecosystem/ai-ecosystem.md"
   ai_ecosystem_coding_environments: "guide/ecosystem/ai-ecosystem.md#6-ide-ade-and-hybrid-coding-environments"
   ai_ecosystem_goose: "guide/ecosystem/ai-ecosystem.md#111-goose-open-source-alternative-block"
@@ -1726,7 +1747,7 @@ deep_dive:
   cowork_prompts: "https://github.com/FlorianBruniaux/claude-cowork-guide/tree/main/prompts"
   cowork_workflows: "https://github.com/FlorianBruniaux/claude-cowork-guide/tree/main/workflows"
   cowork_section: "guide/ecosystem/ai-ecosystem.md#10-claude-cowork-research-preview"
-  cowork_ultimate_guide: 25367  # anchor: for-non-developers-claude-cowork
+  cowork_ultimate_guide: 25110  # anchor: for-non-developers-claude-cowork
   # Team Knowledge Infrastructure (guide/ecosystem/team-knowledge-base.md) - Added 2026-06-23
   team_knowledge_guide: "guide/ecosystem/team-knowledge-base.md"
   team_knowledge_three_way: "guide/ecosystem/team-knowledge-base.md#the-one-tool-for-three-needs-trap"  # static docs vs live systems vs team workflows
@@ -1776,7 +1797,7 @@ deep_dive:
   # Appendix
   appendix_a_file_locations: "guide/ultimate-guide.md#appendix-a-file-locations-reference" # was line 26179
   appendix_b_faq: "guide/ultimate-guide.md#appendix-b-faq" # was line 26357
-  faq_clawdbot_vs_claudecode: 25869
+  faq_clawdbot_vs_claudecode: 25612
   faq_product_managers: "guide/ultimate-guide.md#can-product-managers-use-claude-code" # was line 26428
   appendix_c_resource_evaluation: "guide/ultimate-guide.md#appendix-c-resource-evaluation-process" # was line 26493
   appendix_d_myths_vs_reality: "guide/ultimate-guide.md#appendix-d-myths-vs-reality" # was line 26536
@@ -1800,7 +1821,7 @@ deep_dive:
   # Onboarding matrix required keys (added for v2.0.0 adaptive architecture)
   rules: "guide/ultimate-guide.md#the-golden-rules"  # was bare int 89, a blank line; drifted 1 line from the real heading
   workflow: "guide/ultimate-guide.md#the-workflow"  # was bare int 58, a blank line; drifted 1 line from the real heading
-  fix: 24283  # anchor: 104-troubleshooting | onboarding matrix repair route
+  fix: 24026  # anchor: 104-troubleshooting | onboarding matrix repair route
   architecture: "guide/core/architecture.md"  # was bare int 1280 into ultimate-guide.md, inside a code fence; the comment ("Architecture internals") and its siblings on this line (production_safety, security_hardening) are all plain paths to the dedicated file
   production_safety: "guide/security/production-safety.md"  # Production safety rules
   security_hardening: "guide/security/security-hardening.md"  # Security best practices
@@ -2036,9 +2057,21 @@ deep_dive:
   # ── Printable cheatsheet (standalone file, distinct from the in-guide section at line 19597)
   cheatsheet_file: "guide/cheatsheet.md"
 
+  # Evidence-based handoffs, context ownership and harness improvement
+  context_publication_contract: "guide/core/context-engineering.md#publication-contract-for-curated-context"
+  context_evidence_update_loop: "guide/core/context-engineering.md#the-update-loop"
+  harness_anthology_evaluation: "docs/resource-evaluations/lopopolo-harness-engineering.md"
+  harness_local_quality_bar: "guide/ultimate-guide.md#make-the-local-quality-bar-recoverable"
+  harness_worker_epochs: "guide/roles/agent-evaluation.md#evaluation-epochs-and-four-clocks"
+  memory_mld_observations: "guide/core/memory-systems.md#mld-observations-for-the-harness-builder"
+  dual_instance_handoff_contract: "guide/workflows/dual-instance-planning.md#plan-template"
+  dual_instance_coordination_states: "guide/workflows/dual-instance-planning.md#phase-4-verification"
+  dual_instance_honkonen_evaluation: "docs/resource-evaluations/honkonen-architect-engineer.md"
+
 # ════════════════════════════════════════════════════════════════
 # DECISION TREE (most important - en premier)
 # ════════════════════════════════════════════════════════════════
+
 decide:
   simple_task: "just ask Claude"
   complex_task: "/plan first, then use Tasks API (v2.1.16+) or TodoWrite"
@@ -3048,6 +3081,16 @@ section_maps:
     - "9-reference-architecture"
     - "10-practitioner-video-evidence"
     - "11-harness-optimizers-and-meta-harnesses"
+  "guide/core/ai-concept-boundaries.md":
+    - "context-context-window-and-memory"
+    - "model-product-and-harness"
+    - "assistant-workflow-and-agent"
+    - "tool-and-mcp"
+    - "instructions-permissions-and-sandbox"
+    - "evaluation-and-production-evidence"
+    - "architecture-size-class-modality-and-task"
+    - "check-your-understanding"
+    - "sources-and-adaptation"
   "guide/core/architecture.md":
     - "source-transparency"
     - "where-claude-code-sits-in-the-harness-stack"
@@ -3893,15 +3936,9 @@ section_maps:
     - "when-to-use-this-pattern"
     - "setup"
     - "complete-workflow"
-    - "files-to-modify"
-    - "implementation-steps-sequential"
-    - "success-criteria"
-    - "security-checklist"
-    - "risks--mitigation"
-    - "questions-for-implementer-claude-one"
-    - "estimated-effort-breakdown"
     - "plan-template"
-    - "security-checklist-if-applicable"
+    - "cost-analysis"
+    - "tips-and-troubleshooting"
   "guide/workflows/dynamic-workflows.md":
     - "1-when-to-use-workflows-vs-agent-tool-vs-skills"
     - "2-primitive-reference"

@@ -38,6 +38,8 @@ This guide is the most comprehensive community resource for Claude Code. It cove
 
 ## Guide Structure (11 Sections + Architecture)
 
+**AI Concept Boundaries** (`guide/core/ai-concept-boundaries.md`): seven practical distinctions covering context/memory, model/harness responsibilities, workflow versus agent decisions, tools/MCP, instructions versus access controls, evaluation versus production evidence, and architecture/size/modality/task labels. Includes seven original comprehension scenarios with corrections. Selectively adapted from Anthony Capirchio / The Operating Shift's Lexigraph under CC BY 4.0; source review and export limitations are in `docs/resource-evaluations/lexigraph-ai-lexicon.md`. No source quiz bank is imported, and the exercises are not a validated proficiency assessment.
+
 **Architecture Deep Dive** (`guide/core/architecture.md`):
 - Master Loop: `while(tool_call)`, no DAGs, no classifiers, no RAG
 - 8 Core Tools: Bash, Read, Edit, Write, Grep, Glob, Task, TodoWrite
@@ -61,15 +63,17 @@ This guide is the most comprehensive community resource for Claude Code. It cove
 **Security & Sandboxing** (`guide/security/sandbox-native.md`, `guide/core/settings-reference.md`):
 - Two independent layers: filesystem (write CWD + session temp, read the whole machine) and network (no domain pre-allowed, proxy does not terminate TLS)
 - The default read policy covers `~/.ssh` and `~/.aws` and there is no built-in denylist; `sandbox.credentials.files` and `credentials.envVars` are what actually protect them
-- `excludedCommands` bare-name form never matches, use the glob form; a matching glob unsandboxes the entire Bash invocation including earlier commands (anthropics/claude-code#10524, #81157)
-- Git over SSH needs an exception: the proxy handles HTTP/HTTPS but not port 22 and blocks the ssh-agent socket
-- No curl/wget blocklist exists; a missing domain hangs to timeout rather than erroring
+- `excludedCommands` bare-name form never matches, use the glob form; since v2.1.277 every command in a call must match, so a chained, piped, redirected or `cd`-prefixed call stays sandboxed (anthropics/claude-code#10524, #81157)
+- Git over SSH needs an exception on macOS only (its SSH tunnel cannot authenticate to the sandbox proxy); on Linux/WSL2 it works once the host is allowed, and an HTTPS remote avoids it everywhere
+- No curl/wget blocklist exists; a missing domain prompts in manual mode and is refused, naming the host, in auto mode, where commands can declare hosts per command (`allowed_domains`, v2.1.271+)
+- `failIfUnavailable: true` stops a sandbox that cannot start from silently running commands unsandboxed; native Windows has no sandbox
 - Writes to Claude Code's own settings.json are denied at every scope, so a sandboxed script cannot widen its own policy
 
 **Agent Harnesses and Orchestration** (`guide/core/agent-harness.md`, `guide/ecosystem/agent-harness-landscape.md`, `guide/ecosystem/agentic-tools.md`):
 - The catalog separates 42 strict runtimes from 16 adjacent control planes.
 - Multica is classified as an adjacent control plane: its server coordinates issue, chat, and scheduled runs while a daemon on a connected computer executes external coding-agent CLIs.
 - Its profile documents the server/local execution split, server-stored run data, daemon-user permission boundary, Git enforcement boundary, restricted licence, and untested runtime status.
+- WikiSkill separates execution traces, accumulated knowledge and active skills. Rejected proposal diffs and validation outcomes persist while active skills roll back; pattern pages remain revisable. See `guide/core/memory-systems.md` section 6.8 and `docs/resource-evaluations/wikiskill-persistent-skill-evolution.md` for reported benchmarks, negative transfer and the limits of full skill injection. No native skill-routing or production benefit was measured here.
 
 ---
 
@@ -338,6 +342,12 @@ Model: Sonnet | Ctx: 89.5k | Cost: $2.11 | Ctx(u): 56.0%
 | Orchestrator | Coordination between runtimes or sessions | [Agent Tools](https://cc.bruniaux.com/guide/agentic-tools/) |
 
 Choose the smallest control structure that safely solves the need: a bounded loop for one repeated task; an explicit graph for routing, joins, parallelism, interruption, or durable recovery; a repository harness for repeatable project behavior; and an orchestrator for several runs or queues. Specify success, failure, timeout, budget, and escalation before execution. See [Loop & Graph Engineering](https://cc.bruniaux.com/guide/loop-graph-engineering/) and compare products in the [Agent Harness Map](https://cc.bruniaux.com/guide/agent-harness-landscape/).
+
+Architect-engineer handoffs use a self-contained versioned contract, applicable ADRs, an assigned next owner, and revision-bound review evidence. Task status, run status, and decision status are distinct. Reconcile historical completion claims with live state on resume. See `guide/workflows/dual-instance-planning.md` and `docs/resource-evaluations/honkonen-architect-engineer.md`; separation does not guarantee lower cost, better quality, or reviewer independence.
+
+Repository context routes to authorized owners of stable contracts, organizational knowledge, and live operational state. MLD (Mistakes, Learnings, Desires) supplies observations for corroboration before promotion. Curated candidates stay outside served context until reviewed publication with provenance, audience, revision, and expiry. See `docs/resource-evaluations/lopopolo-harness-engineering.md` for the anthology's evidence limits and integrated locations.
+
+Requalify after material model, host, harness, or action-interface changes. Measure feedback latency, run duration, human attention, and time to accepted outcome separately. See `guide/roles/agent-evaluation.md#evaluation-epochs-and-four-clocks`.
 
 Evaluate the exact model-harness pair for a bounded coding task. Introduce orchestration only when coordination is the constraint. A harness optimizer sits outside the four operating layers and changes candidate harnesses under a separate evaluation protocol.
 
